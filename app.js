@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
-// app.use(express.json());
+app.use(morgan('dev'));
 
 app.get('/', (req,res) => {
     res.send('111 hellow world');
@@ -13,8 +14,20 @@ const orderRoutes = require('./api/routes/orders');
 app.use('/orders', orderRoutes);
 
 app.use((req, res, next)=> {
-    res.status(200).json({
-        message: '222 no router found hellow world'
+    const error = new Error('Not found !');
+    error.status = 404;
+    next(error);
+    // res.status(200).json({
+    //     message: '222 no router found hellow world'
+    // })
+});
+
+app.use((error, req, res, next)=> {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
     })
 });
 

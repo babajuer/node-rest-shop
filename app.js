@@ -1,9 +1,22 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
+// handle CORS to allow other clients to access our API..
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if(res.header === 'options') {
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST,PATCH, DELETE');
+        return res.status(200).json({});
+    }
+    next();
+})
 app.get('/', (req,res) => {
     res.send('111 hellow world');
 })

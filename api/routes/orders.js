@@ -7,9 +7,14 @@ router.get('/',(req, res, next) => {
     })
 });
 
-router.post('/',(req, res, next) => {    
+router.post('/',(req, res, next) => {   
+    const order = {
+        productId: req.body.productId,
+        quantity: req.body.quantity
+    } 
     res.status(201).json({
-        message: 'post orders request'
+        message: 'post orders request',
+        order
     })
 });
 

@@ -2,6 +2,13 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect(`mongodb+srv://fangfang:${process.env.MONGO_ATLAS_PWD}@fangfangcluster-csj9o.gcp.mongodb.net/test?retryWrites=true`,
+{ useNewUrlParser: true });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -21,9 +28,7 @@ app.get('/', (req,res) => {
     res.send('111 hellow world');
 })
 
-const productRoutes = require('./api/routes/products');
 app.use('/products', productRoutes);
-const orderRoutes = require('./api/routes/orders');
 app.use('/orders', orderRoutes);
 
 app.use((req, res, next)=> {

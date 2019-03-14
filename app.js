@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 mongoose.connect(`mongodb+srv://fangfang:${process.env.MONGO_ATLAS_PWD}@fangfangcluster-csj9o.gcp.mongodb.net/node-rest-shop?retryWrites=true`,
 { useNewUrlParser: true });
@@ -30,9 +31,10 @@ app.get('/', (req,res) => {
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next)=> {
-    const error = new Error('Not found !');
+    const error = new Error('Not found ! app.js');
     error.status = 404;
     next(error);
     // res.status(200).json({

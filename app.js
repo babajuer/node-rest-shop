@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-mongoose.connect(`mongodb+srv://fangfang:${process.env.MONGO_ATLAS_PWD}@fangfangcluster-csj9o.gcp.mongodb.net/test?retryWrites=true`,
+mongoose.connect(`mongodb+srv://fangfang:${process.env.MONGO_ATLAS_PWD}@fangfangcluster-csj9o.gcp.mongodb.net/node-rest-shop?retryWrites=true`,
 { useNewUrlParser: true });
 
 app.use(morgan('dev'));
